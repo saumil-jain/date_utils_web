@@ -13,8 +13,13 @@
             type="date"
             name="from_date"
             id="from_date"
+            max="9999-12-31"
+            min="0001-01-01"
             required>
     <button type="submit">Submit</button>
 </form>
+{% if output %}
+    {{ output }}
+{% endif %}
 </body>
 </html>
