@@ -55,7 +55,7 @@ ROOT_URLCONF = 'dateutils.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "dateutils", "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
