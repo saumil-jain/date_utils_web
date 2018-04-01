@@ -17,9 +17,8 @@ def process_input_date(input_date):
         month = int(input_date_data[1])
         day = int(input_date_data[2])
         return datetime.date(year=year, month=month, day=day)
-    except (IndexError, ValueError) as e:
-        print("Invalid date format")
-        raise
+    except IndexError:
+        raise ValueError("Invalid date format '{}'".format(input_date))
 
 
 def calculate_date_diff_from_today(date_object):
