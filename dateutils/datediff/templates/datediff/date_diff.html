@@ -1,25 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Difference From Today</title>
-</head>
-<body>
-<h1>Calculate difference in days from today</h1>
-<form method="POST" action="">
-    {% csrf_token %}
-    <label for="from_date">Enter date</label>
-    <input
-            type="date"
-            name="from_date"
-            id="from_date"
-            max="9999-12-31"
-            min="0001-01-01"
-            required>
-    <button type="submit">Submit</button>
-</form>
-{% if output %}
-    {{ output }}
-{% endif %}
-</body>
-</html>
+{% extends "dateutils/base.html" %}
+
+{% block title %}
+    Difference From Today
+{% endblock title %}
+
+{% block content %}
+    <h1>Calculate difference in days from today</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label for="from_date">Enter date</label>
+        <input
+                type="date"
+                name="from_date"
+                id="from_date"
+                max="9999-12-31"
+                min="0001-01-01"
+                required>
+        <button type="submit">Submit</button>
+    </form>
+    {% if output %}
+        {{ output }}
+    {% endif %}
+{% endblock content %}

@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome to Date Utils</title>
-</head>
-<body>
-<p>This is the Date Utils home page.</p>
-<p><a href="{% url 'datediff_difference_from_today' %}">Difference from today</a></p>
-</body>
-</html>
+{% extends "dateutils/base.html" %}
+
+{% block title %}
+    Welcome to Date Utils
+{% endblock title %}
+
+{% block content %}
+    <h1>This is the Date Utils home page.</h1>
+    <p>
+        <a href="{% url 'datediff_difference_from_today' %}">Difference from today</a>
+    </p>
+{% endblock content %}
