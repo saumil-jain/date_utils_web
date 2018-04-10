@@ -30,3 +30,15 @@ def calculate_date_diff_from_today(date_object):
     today = datetime.date.today()
     difference = abs(today - date_object)
     return date_object, today, difference
+
+
+def add_days_to_date(date_object, days):
+    """Adds days to a date
+
+    The days can be negative, in which case the days will be subtracted.
+
+    :param date_object: The datetime.date object to which days are to be added
+    :param days: The number of days to be added; can be negative
+    :return: The new datetime.date object
+    """
+    return date_object + datetime.timedelta(days=days)
