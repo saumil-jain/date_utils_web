@@ -19,8 +19,12 @@ Add Days
         <option value="+">Add (+)</option>
         <option value="-">Subtract (-)</option>
     </select>
-    <input type="number" id="days" value="10" min="1" max="3652058" required>
+    <input type="number" id="days" name="days" value="10" min="1" max="3652058" required>
     <label for="days">Days</label>
     <button type="submit">Calculate</button>
 </form>
+<br>
+{% if output %}
+    {{ output }}
+{% endif %}
 {% endblock content %}

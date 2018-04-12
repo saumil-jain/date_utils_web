@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 from .models import process_input_date, calculate_date_diff_from_today
+from .models import add_days_to_date as models_add_days_to_date
 
 
 # Create your views here.
@@ -28,4 +29,19 @@ def difference_from_today(request):
 
 
 def add_days_to_date(request):
-    return render(request, "datediff/add_days.html")
+    if request.method == "POST":
+        date = request.POST.get("from_date")
+        days = int(request.POST.get("days"))
+        context = None
+        if date and days:
+            try:
+                new_date = models_add_days_to_date(process_input_date(date), days)
+                output_text = "New date is {}".format(new_date)
+            except ValueError as e:
+                output_text = "Invalid date format {}. {}".format(date,
+                                                                     "Date must be between 0001-01-01 and 9999-12-31")
+
+            context = {"output": output_text}
+        return render(request, "datediff/add_days.html", context=context)
+    else:
+        return render(request, "datediff/add_days.html")
