@@ -6,7 +6,8 @@
 
 {% block content %}
     <h1>This is the Date Utils home page.</h1>
-    <p>
-        <a href="{% url 'datediff_difference_from_today' %}">Difference from today</a>
-    </p>
+    <ul>
+        <li><a href="{% url 'datediff_difference_from_today' %}">Difference from today</a></li>
+        <li><a href="{% url 'datediff_add_days' %}">Add days to date</a></li>
+    </ul>
 {% endblock content %}
