@@ -119,3 +119,40 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'default': {
+            'format': '%(asctime)s - [%(levelname)-8s] - [%(name)-40s] - %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        }
+    },
+    'handlers': {
+        'my_console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'default',
+            'stream': 'ext://sys.stdout'
+        },
+        'rotating_file': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'formatter': 'default',
+            'filename': os.path.join(BASE_DIR, 'logs', 'date_utils_web.log'),
+            'when': 'D',
+            'interval': 1
+        }
+    },
+    'loggers': {
+        'dateutils': {
+            'level': 'DEBUG',
+            'handlers': ['rotating_file']
+        },
+        'datediff': {
+            'level': 'DEBUG',
+            'handlers': ['rotating_file']
+        }
+    }
+}
