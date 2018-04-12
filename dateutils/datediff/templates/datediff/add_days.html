@@ -1,0 +1,26 @@
+{% extends "dateutils/base.html" %}
+
+{% block title %}
+Add Days
+{% endblock title %}
+
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %}
+    <label for="from_date">Date</label>
+    <input
+            type="date"
+            name="from_date"
+            id="from_date"
+            max="9999-12-31"
+            min="0001-01-01"
+            required>
+    <select name="operation" required>
+        <option value="+">Add (+)</option>
+        <option value="-">Subtract (-)</option>
+    </select>
+    <input type="number" id="days" value="10" min="1" max="3652058" required>
+    <label for="days">Days</label>
+    <button type="submit">Calculate</button>
+</form>
+{% endblock content %}
