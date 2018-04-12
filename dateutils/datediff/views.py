@@ -25,3 +25,7 @@ def difference_from_today(request):
         return render(request, "datediff/date_diff.html", context=context)
     else:
         return render(request, "datediff/date_diff.html")
+
+
+def add_days_to_date(request):
+    return render(request, "datediff/add_days.html")
