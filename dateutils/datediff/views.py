@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from .models import process_input_date, calculate_date_diff_from_today
 from .models import add_days_to_date as models_add_days_to_date
-from .forms import DateDiffFromTodayForm
+from .forms import DateDiffFromTodayForm, AddDaysToDateForm
 
 
 # Create your views here.
@@ -23,23 +23,18 @@ def difference_from_today(request):
 
 
 def add_days_to_date(request):
+    output_text = None
     if request.method == "POST":
-        date = request.POST.get("from_date")
-        days = int(request.POST.get("days"))
-        operation = request.POST.get("operation")
-        context = None
-        if date and days:
-            try:
-                if operation == "-":
-                    days = -days
-                input_date = process_input_date(date)
-                new_date = models_add_days_to_date(input_date, days)
-                output_text = "{} {} {} days is {}".format(input_date, operation, abs(days), new_date)
-            except ValueError as e:
-                output_text = "Invalid date format {}. {}".format(date,
-                                                                     "Date must be between 0001-01-01 and 9999-12-31")
-
-            context = {"output": output_text}
-        return render(request, "datediff/add_days.html", context=context)
+        form = AddDaysToDateForm(data=request.POST)
+        if form.is_valid():
+            input_date = form.cleaned_data["input_date"]
+            operation = form.cleaned_data["operation"]
+            days = form.cleaned_data["days"]
+            if operation == "-":
+                days = -days
+            new_date = models_add_days_to_date(input_date, days)
+            output_text = "{} {} {} days is {}".format(input_date, operation, abs(days), new_date)
     else:
-        return render(request, "datediff/add_days.html")
+        form = AddDaysToDateForm()
+
+    return render(request, "datediff/add_days.html", context={"form": form, "output": output_text})
