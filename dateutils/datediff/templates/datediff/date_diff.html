@@ -8,14 +8,7 @@
     <h1>Calculate difference in days from today</h1>
     <form method="POST" action="">
         {% csrf_token %}
-        <label for="from_date">Enter date</label>
-        <input
-                type="date"
-                name="from_date"
-                id="from_date"
-                max="9999-12-31"
-                min="0001-01-01"
-                required>
+        {{ form }}
         <button type="submit">Submit</button>
     </form>
     {% if output %}

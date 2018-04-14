@@ -2,30 +2,24 @@ from django.shortcuts import render
 
 from .models import process_input_date, calculate_date_diff_from_today
 from .models import add_days_to_date as models_add_days_to_date
+from .forms import DateDiffFromTodayForm
 
 
 # Create your views here.
 def difference_from_today(request):
+    output_text = None
     if request.method == "POST":
-        from_date = request.POST.get("from_date")
-        if from_date:
-            print("From date : {}".format(from_date))
-            try:
-                from_date, today, difference = calculate_date_diff_from_today(process_input_date(from_date))
-                output_text = "The difference between the date {} and today's date {} is {} days.".format(from_date,
-                                                                                                          today,
-                                                                                                          difference.days)
-            except ValueError as e:
-                print("Error while processing input date.", e)
-                output_text = "Invalid date format {}. {}".format(from_date,
-                                                                     "Date must be between 0001-01-01 and 9999-12-31")
-            context = {"output": output_text}
-            print(output_text)
-        else:
-            print("No date entered")
-        return render(request, "datediff/date_diff.html", context=context)
+        form = DateDiffFromTodayForm(request.POST)
+        if form.is_valid():
+            from_date = form.cleaned_data["from_date"]
+            from_date, today, difference = calculate_date_diff_from_today(from_date)
+            output_text = "The difference between the date {} and today's date {} is {} days.".format(from_date,
+                                                                                                      today,
+                                                                                                      difference.days)
     else:
-        return render(request, "datediff/date_diff.html")
+        form = DateDiffFromTodayForm()
+
+    return render(request, "datediff/date_diff.html", context={"form": form, "output": output_text})
 
 
 def add_days_to_date(request):
