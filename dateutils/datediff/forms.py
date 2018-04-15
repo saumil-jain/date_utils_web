@@ -33,3 +33,8 @@ class AddDaysToDateForm(forms.Form):
             allowed_days = (input_date - datetime.date.min).days
             raise forms.ValidationError("For the input date {}, the number of days to subtract can't be greater than {}"
                                         .format(input_date, allowed_days))
+
+
+class DifferenceBetweenTwoDatesForm(forms.Form):
+    date_1 = forms.DateField()
+    date_2 = forms.DateField()
