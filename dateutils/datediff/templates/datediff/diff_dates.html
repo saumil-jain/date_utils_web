@@ -1,0 +1,17 @@
+{% extends "dateutils/base.html" %}
+
+{% block title %}
+Difference Between Dates
+{% endblock title %}
+
+{% block content %}
+<h1>Calculate difference between two dates</h1>
+<form method="post" action="{% url 'datediff_diff_dates' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Calculate</button>
+</form>
+{% if output %}
+    {{ output }}
+{% endif %}
+{% endblock content %}

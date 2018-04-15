@@ -1,8 +1,8 @@
 from django.shortcuts import render
 
-from .models import process_input_date, calculate_date_diff_from_today
+from .models import process_input_date, calculate_date_diff_from_today, difference_between_two_dates
 from .models import add_days_to_date as models_add_days_to_date
-from .forms import DateDiffFromTodayForm, AddDaysToDateForm
+from .forms import DateDiffFromTodayForm, AddDaysToDateForm, DifferenceBetweenTwoDatesForm
 
 
 # Create your views here.
@@ -38,3 +38,18 @@ def add_days_to_date(request):
         form = AddDaysToDateForm()
 
     return render(request, "datediff/add_days.html", context={"form": form, "output": output_text})
+
+
+def diff_dates(request):
+    output_text = None
+    if request.method == "POST":
+        form = DifferenceBetweenTwoDatesForm(data=request.POST)
+        if form.is_valid():
+            date_1 = form.cleaned_data.get("date_1")
+            date_2 = form.cleaned_data.get("date_2")
+            days = difference_between_two_dates(date_1, date_2)
+            output_text = "The difference between {} and {} is {} days.".format(date_1, date_1, days)
+    else:
+        form = DifferenceBetweenTwoDatesForm()
+
+    return render(request, "datediff/diff_dates.html", context={"form": form, "output": output_text})
