@@ -42,3 +42,7 @@ def add_days_to_date(date_object, days):
     :return: The new datetime.date object
     """
     return date_object + datetime.timedelta(days=days)
+
+
+def difference_between_two_dates(date_1, date_2):
+    return abs((date_1 - date_2).days)
