@@ -48,7 +48,7 @@ def diff_dates(request):
             date_1 = form.cleaned_data.get("date_1")
             date_2 = form.cleaned_data.get("date_2")
             days = difference_between_two_dates(date_1, date_2)
-            output_text = "The difference between {} and {} is {} days.".format(date_1, date_1, days)
+            output_text = "The difference between {} and {} is {} days.".format(date_1, date_2, days)
     else:
         form = DifferenceBetweenTwoDatesForm()
 
