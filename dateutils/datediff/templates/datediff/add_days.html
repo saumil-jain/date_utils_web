@@ -5,7 +5,7 @@ Add Days
 {% endblock title %}
 
 {% block content %}
-<form action="" method="post">
+<form action="{% url 'datediff_add_days' %}" method="post">
     <h1>Add/Subtract Days</h1>
     {% csrf_token %}
     {{ form.as_p }}

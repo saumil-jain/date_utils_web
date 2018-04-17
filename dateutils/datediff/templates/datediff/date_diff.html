@@ -6,7 +6,7 @@
 
 {% block content %}
     <h1>Calculate difference in days from today</h1>
-    <form method="POST" action="">
+    <form method="POST" action="{% url 'datediff_difference_from_today' %}">
         {% csrf_token %}
         {{ form }}
         <button type="submit">Submit</button>
