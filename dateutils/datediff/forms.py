@@ -25,14 +25,17 @@ class AddDaysToDateForm(forms.Form):
         input_date = cleaned_data.get("input_date")
         operation = cleaned_data.get("operation")
         days = cleaned_data.get("days")
-        if operation == "+" and days > (datetime.date.max - input_date).days:
-            allowed_days = (datetime.date.max - input_date).days
-            raise forms.ValidationError("For the input date {}, the number of days to add can't be greater than {}"
-                                        .format(input_date, allowed_days))
-        if operation == "-" and days > (input_date - datetime.date.min).days:
-            allowed_days = (input_date - datetime.date.min).days
-            raise forms.ValidationError("For the input date {}, the number of days to subtract can't be greater than {}"
-                                        .format(input_date, allowed_days))
+
+        if input_date and operation and days:
+            if operation == "+" and days > (datetime.date.max - input_date).days:
+                allowed_days = (datetime.date.max - input_date).days
+                raise forms.ValidationError("For the input date {}, the number of days to add can't be greater than {}"
+                                            .format(input_date, allowed_days))
+            if operation == "-" and days > (input_date - datetime.date.min).days:
+                allowed_days = (input_date - datetime.date.min).days
+                raise forms.ValidationError(
+                    "For the input date {}, the number of days to subtract can't be greater than {}"
+                        .format(input_date, allowed_days))
 
 
 class DifferenceBetweenTwoDatesForm(forms.Form):
